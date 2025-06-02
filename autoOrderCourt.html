@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>秒級定時開啟網頁</title>
+  <script>
+    let targetWindow = null;
+
+    function authorizeAndStartTimer() {
+      const dateInput = document.getElementById("date").value;
+      const timeInput = document.getElementById("time").value;
+      const targetURL = document.getElementById("url").value;
+
+      if (!dateInput || !timeInput || !targetURL) {
+        alert("請輸入完整的日期、時間和網址！");
+        return;
+      }
+
+      const targetDateTime = new Date(`${dateInput}T${timeInput}`);
+
+      if (isNaN(targetDateTime.getTime())) {
+        alert("請輸入有效的日期和時間！");
+        return;
+      }
+
+      // 開一個空白視窗
+      targetWindow = window.open("", "_blank");
+
+      if (!targetWindow) {
+        alert("瀏覽器阻擋了新視窗，請允許彈出視窗後再試一次。");
+        return;
+      }
+
+      document.getElementById("status").textContent = `已授權，等待開啟：${targetDateTime.toLocaleString()}`;
+
+      const timer = setInterval(() => {
+        const now = new Date();
+        if (now >= targetDateTime) {
+          targetWindow.location.href = targetURL;
+          clearInterval(timer);
+          document.getElementById("status").textContent = "新網頁已開啟。";
+        }
+      }, 500); // 每 0.5 秒檢查一次
+    }
+  </script>
+</head>
+<body>
+  <h1>精確到秒的定時開啟網頁</h1>
+
+  <label for="date">日期：</label>
+  <input type="date" id="date"><br><br>
+
+  <label for="time">時間（HH:MM:SS）：</label>
+  <input type="time" id="time" step="1"><br><br>
+
+  <label for="url">網址：</label>
+  <input type="url" id="url" placeholder="https://example.com"><br><br>
+
+  <button onclick="authorizeAndStartTimer()">授權並開始等待</button>
+
+  <p id="status">尚未授權。</p>
+</body>
+</html>
