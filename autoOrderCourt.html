@@ -32,6 +32,7 @@
       }
 
       document.getElementById("status").textContent = `已授權，等待開啟：${targetDateTime.toLocaleString()}`;
+      document.getElementById("cancelBtn").disabled = false;
 
       const timer = setInterval(() => {
         const now = new Date();
