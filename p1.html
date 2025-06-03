@@ -9,16 +9,22 @@
 
   <label for="venue">場地:</label>
   <select id="venue">
-    <option value="A場">A場</option>
-    <option value="B場">B場</option>
-    <option value="C場">C場</option>
+    <option value="1152">A場</option>
+    <option value="1153">B場</option>
+    <option value="1154">C場</option>
   </select>
 
   <label for="time">時間:</label>
   <select id="time">
-    <option value="3點">3點</option>
-    <option value="4點">4點</option>
-    <option value="5點">5點</option>
+    <option value="12">12點</option>
+    <option value="13">13點</option>
+    <option value="14">14點</option>
+    <option value="15">15點</option>
+    <option value="16">16點</option>
+    <option value="17">17點</option>
+    <option value="18">18點</option>
+    <option value="19">19點</option>
+    <option value="20">20點</option>
   </select>
 
   <button onclick="generateString()">產生字串</button>
@@ -29,7 +35,7 @@
     function generateString() {
       const venue = document.getElementById("venue").value;
       const time = document.getElementById("time").value;
-      const result = `${venue} ${time}`;
+      const result = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${venue}&QTime=${time}&PT=1&D=2025/06/07`;      
       document.getElementById("result").textContent = `選擇結果：${result}`;
     }
   </script>
