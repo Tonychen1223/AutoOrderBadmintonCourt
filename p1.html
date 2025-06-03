@@ -2,10 +2,79 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>場地與時間選擇</title>
+  <title>定時開啟網頁（可取消）</title>
+  <script>
+    let targetWindow = null;
+    let timer = null;
+
+    function authorizeAndStartTimer() {
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+      const url = document.getElementById("url").value;
+
+      if (!date || !time || !url) {
+        alert("請輸入完整的日期、時間（含秒）與網址！");
+        return;
+      }
+
+      const dateTimeStr = `${date}T${time}`;
+      const targetDateTime = new Date(dateTimeStr);
+
+      if (isNaN(targetDateTime.getTime())) {
+        alert("時間格式無效，請使用 HH:MM:SS");
+        return;
+      }
+
+      targetWindow = window.open("", "_blank");
+      if (!targetWindow) {
+        alert("瀏覽器阻擋了新視窗，請允許彈出視窗後再試一次。");
+        return;
+      }
+
+      document.getElementById("status").textContent = `已授權，等待開啟：${targetDateTime.toLocaleString()}`;
+      document.getElementById("cancelBtn").disabled = false;
+
+      timer = setInterval(() => {
+        const now = new Date();
+        if (now >= targetDateTime) {
+          targetWindow.location.href = url;
+          clearInterval(timer);
+          timer = null;
+          document.getElementById("status").textContent = "新網頁已開啟。";
+          document.getElementById("cancelBtn").disabled = true;
+        }
+      }, 500);
+    }
+
+    function cancelTimer() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+      if (targetWindow && !targetWindow.closed) {
+        targetWindow.close();
+      }
+      targetWindow = null;
+      document.getElementById("status").textContent = "已取消定時開啟。";
+      document.getElementById("cancelBtn").disabled = true;
+    }
+
+    function generateString() {
+      const cvenue = document.getElementById("venue").value;
+      const ctime = document.getElementById("court_time").value;
+      const cdate = document.getElementById("order_date").value;      
+      const result = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${cdate}`;
+      document.getElementById("url").value = `${result}`;
+    }
+  </script>
 </head>
 <body>
+  
+  //以下為選擇場地時間
   <h2>選擇場地與時間</h2>
+
+  <label for="order_date">日期：</label>
+  <input type="date" id="order_date"><br><br>
 
   <label for="venue">場地:</label>
   <select id="venue">
@@ -14,8 +83,14 @@
     <option value="1154">C場</option>
   </select>
 
-  <label for="time">時間:</label>
-  <select id="time">
+  <label for="court_time">時間:</label>
+  <select id="court_time">
+    <option value="06">06點</option>
+    <option value="07">07點</option>
+    <option value="08">08點</option>
+    <option value="09">09點</option>
+    <option value="10">10點</option>
+    <option value="11">11點</option>
     <option value="12">12點</option>
     <option value="13">13點</option>
     <option value="14">14點</option>
@@ -25,24 +100,26 @@
     <option value="18">18點</option>
     <option value="19">19點</option>
     <option value="20">20點</option>
+    <option value="21">21點</option>
   </select>
 
   <button onclick="generateString()">產生字串</button>
-  <p id="result"></p>
 
+  //以下為定時開啟
+  <h1>定時開啟網頁（可取消）</h1>
+  
   <label for="date">日期：</label>
   <input type="date" id="date"><br><br>
 
-  <label for="time">時間（HH:MM:SS）：</label>
-  <input type="time" id="time" step="1"><br><br>
+  <label for="time">時間（格式 HH:MM:SS）：</label>
+  <input type="text" id="time" placeholder="例如：14:30:25"><br><br>
 
-  <script>
-    function generateString() {
-      const venue = document.getElementById("venue").value;
-      const time = document.getElementById("time").value;
-      const result = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${venue}&QTime=${time}&PT=1&D=2025/06/07`;      
-      document.getElementById("result").textContent = `選擇結果：${result}`;
-    }
-  </script>
+  <label for="url">網址：</label>
+  <input type="url" id="url" placeholder="https://example.com"><br><br>
+
+  <button onclick="authorizeAndStartTimer()">授權並開始等待</button>
+  <button id="cancelBtn" onclick="cancelTimer()" disabled>取消定時開啟</button>
+
+  <p id="status">尚未授權。</p>
 </body>
 </html>
