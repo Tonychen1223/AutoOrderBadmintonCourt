@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>v0.03 定時開啟網頁（可取消）</title>
+  <title>v0.04 定時開啟網頁（可取消）</title>
   <script>
     let targetWindow = null;
     let timer = null;
@@ -62,17 +62,12 @@
     function generateString() {
       const cvenue = document.getElementById("venue").value;
       const ctime = document.getElementById("court_time").value;
-      const cdate = document.getElementById("order_date").value;
-
-      const cdateTimeStr = `${cdate}T${ctime}`;      
+      const cdate = document.getElementById("order_date").value;      
       
-      //const result = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${cdate}`;
+      const cresult = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${cdate}`;
       
       //document.getElementById("url").value = `${result}`;
-      //document.getElementById("result").textContent = `選擇結果：${result}`;
-
-      document.getElementById("result").textContent = `選擇結果：${cdateTimeStr}`;
-      
+      document.getElementById("result").textContent = `選擇結果：${cresult}`;     
       
     }
   </script>
