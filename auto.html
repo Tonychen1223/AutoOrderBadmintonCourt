@@ -68,8 +68,45 @@
   </script>
 </head>
 <body>
-  <h1>定時開啟網頁（可取消）</h1>
+  
+  //以下為選擇場地時間
+  <h2>選擇場地與時間</h2>
 
+  <label for="order_date">日期：</label>
+  <input type="date" id="order_date"><br><br>
+
+  <label for="venue">場地:</label>
+  <select id="venue">
+    <option value="1152">A場</option>
+    <option value="1153">B場</option>
+    <option value="1154">C場</option>
+  </select>
+
+  <label for="court_time">時間:</label>
+  <select id="court_time">
+    <option value="06">06點</option>
+    <option value="07">07點</option>
+    <option value="08">08點</option>
+    <option value="09">09點</option>
+    <option value="10">10點</option>
+    <option value="11">11點</option>
+    <option value="12">12點</option>
+    <option value="13">13點</option>
+    <option value="14">14點</option>
+    <option value="15">15點</option>
+    <option value="16">16點</option>
+    <option value="17">17點</option>
+    <option value="18">18點</option>
+    <option value="19">19點</option>
+    <option value="20">20點</option>
+    <option value="21">21點</option>
+  </select>
+
+  <button onclick="generateString()">產生字串</button>
+
+  //以下為定時開啟
+  <h1>定時開啟網頁（可取消）</h1>
+  
   <label for="date">日期：</label>
   <input type="date" id="date"><br><br>
 
