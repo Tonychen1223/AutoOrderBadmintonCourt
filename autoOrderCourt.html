@@ -16,6 +16,7 @@
         return;
       }
       
+      const dateTimeStr = `${date}T${time}`;
       const targetDateTime = new Date(`${dateInput}T${timeInput}`);
 
       if (isNaN(targetDateTime.getTime())) {
@@ -25,7 +26,6 @@
 
       // 開一個空白視窗
       targetWindow = window.open("", "_blank");
-
       if (!targetWindow) {
         alert("瀏覽器阻擋了新視窗，請允許彈出視窗後再試一次。");
         return;
