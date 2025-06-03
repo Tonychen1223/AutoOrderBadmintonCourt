@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>場地與時間選擇</title>
+</head>
+<body>
+  <h2>選擇場地與時間</h2>
+
+  <label for="venue">場地:</label>
+  <select id="venue">
+    <option value="A場">A場</option>
+    <option value="B場">B場</option>
+    <option value="C場">C場</option>
+  </select>
+
+  <label for="time">時間:</label>
+  <select id="time">
+    <option value="3點">3點</option>
+    <option value="4點">4點</option>
+    <option value="5點">5點</option>
+  </select>
+
+  <button onclick="generateString()">產生字串</button>
+
+  <p id="result"></p>
+
+  <script>
+    function generateString() {
+      const venue = document.getElementById("venue").value;
+      const time = document.getElementById("time").value;
+      const result = `${venue} ${time}`;
+      document.getElementById("result").textContent = `選擇結果：${result}`;
+    }
+  </script>
+</body>
+</html>
