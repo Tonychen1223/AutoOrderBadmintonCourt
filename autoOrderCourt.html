@@ -40,6 +40,7 @@
           targetWindow.location.href = targetURL;
           clearInterval(timer);
           document.getElementById("status").textContent = "新網頁已開啟。";
+          document.getElementById("cancelBtn").disabled = true;
         }
       }, 500); // 每 0.5 秒檢查一次
     }
