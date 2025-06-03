@@ -58,6 +58,13 @@
       document.getElementById("status").textContent = "已取消定時開啟。";
       document.getElementById("cancelBtn").disabled = true;
     }
+
+    function generateString() {
+      const cvenue = document.getElementById("venue").value;
+      const ctime = document.getElementById("court_time").value;
+      const result = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=2025/06/07`;      
+      document.getElementById("url").value = `${result}`;
+    }
   </script>
 </head>
 <body>
