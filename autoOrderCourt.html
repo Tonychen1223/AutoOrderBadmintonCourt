@@ -45,6 +45,19 @@
       }, 500); // 每 0.5 秒檢查一次
     }
 
+    function cancelTimer() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+      if (targetWindow && !targetWindow.closed) {
+        targetWindow.close();
+      }
+      targetWindow = null;
+      document.getElementById("status").textContent = "已取消定時開啟。";
+      document.getElementById("cancelBtn").disabled = true;
+    }
+
     function generateString() {
       const venue = document.getElementById("venue").value;
       const time = document.getElementById("court_time").value;
