@@ -6,25 +6,24 @@
   <script>
     let targetWindow = null;
 
-    function authorizeAndStartTimer() {
-      const dateInput = document.getElementById("date").value;
-      const timeInput = document.getElementById("time").value;
-      const targetURL = document.getElementById("url").value;
+function authorizeAndStartTimer() {
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+      const url = document.getElementById("url").value;
 
-      if (!dateInput || !timeInput || !targetURL) {
-        alert("請輸入完整的日期、時間和網址！");
+      if (!date || !time || !url) {
+        alert("請輸入完整的日期、時間（含秒）與網址！");
         return;
       }
-      
+
       const dateTimeStr = `${date}T${time}`;
-      const targetDateTime = new Date(`${dateInput}T${timeInput}`);
+      const targetDateTime = new Date(dateTimeStr);
 
       if (isNaN(targetDateTime.getTime())) {
-        alert("請輸入有效的日期和時間！");
+        alert("時間格式無效，請使用 HH:MM:SS");
         return;
       }
 
-      // 開一個空白視窗
       targetWindow = window.open("", "_blank");
       if (!targetWindow) {
         alert("瀏覽器阻擋了新視窗，請允許彈出視窗後再試一次。");
@@ -34,15 +33,16 @@
       document.getElementById("status").textContent = `已授權，等待開啟：${targetDateTime.toLocaleString()}`;
       document.getElementById("cancelBtn").disabled = false;
 
-      const timer = setInterval(() => {
+      timer = setInterval(() => {
         const now = new Date();
         if (now >= targetDateTime) {
-          targetWindow.location.href = targetURL;
+          targetWindow.location.href = url;
           clearInterval(timer);
+          timer = null;
           document.getElementById("status").textContent = "新網頁已開啟。";
           document.getElementById("cancelBtn").disabled = true;
         }
-      }, 500); // 每 0.5 秒檢查一次
+      }, 500);
     }
 
     function cancelTimer() {
