@@ -64,7 +64,8 @@
       const ctime = document.getElementById("court_time").value;
       const cdate = document.getElementById("order_date").value;      
       const result = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${cdate}`;
-      document.getElementById("url").value = `${result}`;
+      //document.getElementById("url").value = `${result}`;
+      document.getElementById("result").textContent = `選擇結果：${result}`;
     }
   </script>
 </head>
@@ -104,6 +105,7 @@
   </select>
 
   <button onclick="generateString()">產生字串</button>
+  <p id="result"></p>
 
   //以下為定時開啟
   <h1>定時開啟網頁（可取消）</h1>
