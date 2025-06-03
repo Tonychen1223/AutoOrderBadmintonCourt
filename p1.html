@@ -63,13 +63,14 @@
       const cvenue = document.getElementById("venue").value;
       const ctime = document.getElementById("court_time").value;
       const cdate = document.getElementById("order_date").value;
-      
+      cccdd=string(${cdate});
+      cccdd[4]="/";
       //const result = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${cdate}`;
       
       //document.getElementById("url").value = `${result}`;
       //document.getElementById("result").textContent = `選擇結果：${result}`;
-      cdate[4]="/";
-      document.getElementById("result").textContent = `選擇結果：${cdate}`;
+      
+      document.getElementById("result").textContent = cccdd;
     }
   </script>
 </head>
