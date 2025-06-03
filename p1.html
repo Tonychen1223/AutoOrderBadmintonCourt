@@ -28,8 +28,13 @@
   </select>
 
   <button onclick="generateString()">產生字串</button>
-
   <p id="result"></p>
+
+  <label for="date">日期：</label>
+  <input type="date" id="date"><br><br>
+
+  <label for="time">時間（HH:MM:SS）：</label>
+  <input type="time" id="time" step="1"><br><br>
 
   <script>
     function generateString() {
