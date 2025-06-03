@@ -43,12 +43,12 @@
       }, 500); // 每 0.5 秒檢查一次
     }
 
-  //  function generateString() {
-  //    const venue = document.getElementById("venue").value;
-  //    const time = document.getElementById("time").value;
-  //    const result = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${venue}&QTime=${time}&PT=1&D=2025/06/07`;      
-  //    document.getElementById("url").value = `${result}`;
-  //  }
+    function generateString() {
+      const venue = document.getElementById("venue").value;
+      const time = document.getElementById("court_time").value;
+      const result = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${venue}&QTime=${time}&PT=1&D=2025/06/07`;      
+      document.getElementById("url").value = `${result}`;
+    }
   </script>
 </head>
 <body>
@@ -63,8 +63,8 @@
     <option value="1154">C場</option>
   </select>
 
-  <label for="time">時間:</label>
-  <select id="time">
+  <label for="court_time">時間:</label>
+  <select id="court_time">
     <option value="12">12點</option>
     <option value="13">13點</option>
     <option value="14">14點</option>
