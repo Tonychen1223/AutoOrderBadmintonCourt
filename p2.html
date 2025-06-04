@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>v0.12 定時開啟網頁(可取消)</title>
+  <title>v0.13 定時開啟網頁(可取消)</title>
   <script>
     let targetWindow = null;
     let timer = null;
@@ -12,24 +12,24 @@
     //
     window.onload = function () {
     // 計算下個星期六
-    const dayOfWeek = now.getDay(); // 0 = Sunday, 6 = Saturday
-    const daysUntilSaturday = (6 - dayOfWeek + 7) % 7 || 7; // 至少+1天
-    const nextSaturday = new Date(now);
-    nextSaturday.setDate(now.getDate() + daysUntilSaturday);
+    //const dayOfWeek = now.getDay(); // 0 = Sunday, 6 = Saturday
+    //const daysUntilSaturday = (6 - dayOfWeek + 7) % 7 || 7; // 至少+1天
+    //const nextSaturday = new Date(now);
+    //nextSaturday.setDate(now.getDate() + daysUntilSaturday);
 
-    const year = nextSaturday.getFullYear();
-    const month = String(nextSaturday.getMonth() + 1).padStart(2, '0');
-    const day = String(nextSaturday.getDate()).padStart(2, '0');
-    const nextSaturdayStr = `${year}-${month}-${day}`;
-    document.getElementById("date").value = nextSaturdayStr;
+    //const year = nextSaturday.getFullYear();
+    //const month = String(nextSaturday.getMonth() + 1).padStart(2, '0');
+    //const day = String(nextSaturday.getDate()).padStart(2, '0');
+    //const nextSaturdayStr = `${year}-${month}-${day}`;
+    //document.getElementById("date").value = nextSaturdayStr;
     
     // 設定預設日期為今天
-    //const now = new Date();
-    //const year = now.getFullYear();
-    //const month = String(now.getMonth() + 1).padStart(2, '0');
-    //const day = String(now.getDate()).padStart(2, '0');
-    //const today = `${year}-${month}-${day}`;
-    //document.getElementById("date").value = today;
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const today = `${year}-${month}-${day}`;
+    document.getElementById("date").value = today;
 
     // 設定預設時間為「下一個整點」
     let nextHour = now.getHours() + 1;
