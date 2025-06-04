@@ -2,11 +2,33 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>v0.08 定時開啟網頁（可取消）</title>
+  <title>v0.10 定時開啟網頁(可取消)</title>
   <script>
     let targetWindow = null;
     let timer = null;
+    //
+    // 將要預訂的日期設為今天
+    //
+    window.onload = function () {
+    // 設定預設日期為今天
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const today = `${year}-${month}-${day}`;
+    document.getElementById("date").value = today;
 
+    // 設定預設時間為「下一個整點」
+    let nextHour = now.getHours() + 1;
+    if (nextHour === 24) {
+      nextHour = 0; // 隔天凌晨
+    }
+    const defaultTime = `${String(nextHour).padStart(2, '0')}:00:00`;
+    document.getElementById("time").value = defaultTime;
+    //
+    //
+    //
+    
     function authorizeAndStartTimer() {
       const date = document.getElementById("date").value;
       const time = document.getElementById("time").value;
@@ -57,8 +79,12 @@
       targetWindow = null;
       document.getElementById("status").textContent = "已取消定時開啟。";
       document.getElementById("cancelBtn").disabled = true;
-    }
+    }    
+    
+  };
 
+
+    
     function generateString() {
       const cvenue = document.getElementById("venue").value;
       const ctime = document.getElementById("court_time").value;
