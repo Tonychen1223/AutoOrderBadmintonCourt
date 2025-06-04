@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>v0.07 定時開啟網頁（可取消）</title>
+  <title>v0.08 定時開啟網頁（可取消）</title>
   <script>
     let targetWindow = null;
     let timer = null;
@@ -64,13 +64,10 @@
       const ctime = document.getElementById("court_time").value;
       const cdate = document.getElementById("order_date").value;
       
-      //const rawDate = document.getElementById("date").value; // 例如 "2025-06-04"
       const formattedDate = cdate.replace(/-/g, "/");       // "2025/06/04"
-      //console.log(formattedDate); // 輸出 "2025/06/04"
-      
       const cresult = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${formattedDate}`;
             
-      //document.getElementById("url").value = `${result}`;
+      document.getElementById("url").value = `${cresult}`;
       document.getElementById("result").textContent = `選擇結果：${cresult}`;     
       
     }
