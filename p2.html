@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>v0.14 定時開啟網頁(可取消)</title>
+  <title>v0.15 定時開啟網頁(可取消)</title>
   <script>
     let targetWindow = null;
     let timer = null;
@@ -24,7 +24,7 @@
     const dayOfWeek = now.getDay(); // 0 = Sunday, 6 = Saturday
     const daysUntilSaturday = (6 - dayOfWeek + 7) % 7 || 7; // 至少+1天
     const nextSaturday = new Date(now);
-    nextSaturday.setDate(now.getDate() + daysUntilSaturday);
+    nextSaturday.setDate(now.getDate() + daysUntilSaturday +7); //+7=下下個星期六
 
     const year = nextSaturday.getFullYear();
     const month = String(nextSaturday.getMonth() + 1).padStart(2, '0');
