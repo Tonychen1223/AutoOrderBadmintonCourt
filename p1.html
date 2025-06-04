@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>v0.05 定時開啟網頁（可取消）</title>
+  <title>v0.06 定時開啟網頁（可取消）</title>
   <script>
     let targetWindow = null;
     let timer = null;
@@ -63,10 +63,10 @@
       const cvenue = document.getElementById("venue").value;
       const ctime = document.getElementById("court_time").value;
       const cdate = document.getElementById("order_date").value;      
-      var vdate =  cdate;
-      vdate[1]=0;
-      vdate[2]=0;
-      vdate[3]=0;
+      var vdate =  order_date.getdate().value;
+      //vdate[1]=0;
+      //vdate[2]=0;
+      //vdate[3]=0;
       const cresult = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${vdate}`;
             
       //document.getElementById("url").value = `${result}`;
