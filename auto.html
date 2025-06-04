@@ -2,11 +2,51 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>定時開啟網頁（可取消）</title>
+  <title>v0.1.0 定時開啟網頁(可取消)</title>
   <script>
     let targetWindow = null;
     let timer = null;
+    
+    //
+    // 將預訂的日期設為今天
+    //
+    window.onload = function () {
+      
+    const now = new Date();
 
+    // 設定(定時)日期為明天
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1); // 自動處理月底與跨月/年    
+    const tdyear = tomorrow.getFullYear();
+    const tdmonth = String(tomorrow.getMonth() + 1).padStart(2, '0');
+    const tdday = String(tomorrow.getDate()).padStart(2, '0');
+    const tdtoday = `${tdyear}-${tdmonth}-${tdday}`;
+    document.getElementById("date").value = tdtoday;
+
+    // 計算下個星期六
+    const dayOfWeek = now.getDay(); // 0 = Sunday, 6 = Saturday
+    const daysUntilSaturday = (6 - dayOfWeek + 7) % 7 || 7; // 至少+1天
+    const nextSaturday = new Date(now);
+    nextSaturday.setDate(now.getDate() + daysUntilSaturday +7); //+7=下下個星期六
+
+    const year = nextSaturday.getFullYear();
+    const month = String(nextSaturday.getMonth() + 1).padStart(2, '0');
+    const day = String(nextSaturday.getDate()).padStart(2, '0');
+    const nextSaturdayStr = `${year}-${month}-${day}`;
+    document.getElementById("order_date").value = nextSaturdayStr;
+
+      
+    // 設定預設時間為「下一個整點」
+    let nextHour = now.getHours() + 1;
+    if (nextHour === 24) {
+      nextHour = 0; // 隔天凌晨
+    }
+    const defaultTime = `${String(nextHour).padStart(2, '0')}:00:00`;
+    document.getElementById("time").value = defaultTime;    
+    }
+    //
+    //
+    //
     function authorizeAndStartTimer() {
       const date = document.getElementById("date").value;
       const time = document.getElementById("time").value;
@@ -57,13 +97,19 @@
       targetWindow = null;
       document.getElementById("status").textContent = "已取消定時開啟。";
       document.getElementById("cancelBtn").disabled = true;
-    }
-
+    }    
+    
     function generateString() {
       const cvenue = document.getElementById("venue").value;
       const ctime = document.getElementById("court_time").value;
-      const result = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=2025/06/07`;      
-      document.getElementById("url").value = `${result}`;
+      const cdate = document.getElementById("order_date").value;
+      
+      const formattedDate = cdate.replace(/-/g, "/");       // "2025/06/04"
+      const cresult = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${formattedDate}`;
+            
+      document.getElementById("url").value = `${cresult}`;
+      document.getElementById("result").textContent = `預設字串：${cresult}`;     
+      
     }
   </script>
 </head>
@@ -77,6 +123,7 @@
 
   <label for="venue">場地:</label>
   <select id="venue">
+    <option value="1154">C場</option>    
     <option value="1152">A場</option>
     <option value="1153">B場</option>
     <option value="1154">C場</option>
@@ -84,6 +131,7 @@
 
   <label for="court_time">時間:</label>
   <select id="court_time">
+    <option value="19">19點</option>
     <option value="06">06點</option>
     <option value="07">07點</option>
     <option value="08">08點</option>
@@ -102,19 +150,20 @@
     <option value="21">21點</option>
   </select>
 
-  <button onclick="generateString()">產生字串</button>
+  <button onclick="generateString()">產生預訂字串</button>
+  <p id="result"></p>
 
   <!--以下為定時開啟-->
   <h1>定時開啟網頁（可取消）</h1>
   
-  <label for="date">日期：</label>
+  <label for="date">(定時)日期：</label>
   <input type="date" id="date"><br><br>
 
-  <label for="time">時間（格式 HH:MM:SS）：</label>
+  <label for="time">(定時)時間（格式 HH:MM:SS）：</label>
   <input type="text" id="time" placeholder="例如：14:30:25"><br><br>
 
-  <label for="url">網址：</label>
-  <input type="url" id="url" placeholder="https://example.com"><br><br>
+  <label for="url">網址字串：</label>
+  <input type="url" id="url" size="130" placeholder="https://example.com"><br><br>
 
   <button onclick="authorizeAndStartTimer()">授權並開始等待</button>
   <button id="cancelBtn" onclick="cancelTimer()" disabled>取消定時開啟</button>
