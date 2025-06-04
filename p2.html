@@ -6,11 +6,11 @@
   <script>
     let targetWindow = null;
     let timer = null;
+    
     //
     // 將要預訂的日期設為今天
     //
     window.onload = function () {
-
     // 計算下個星期六
     const dayOfWeek = now.getDay(); // 0 = Sunday, 6 = Saturday
     const daysUntilSaturday = (6 - dayOfWeek + 7) % 7 || 7; // 至少+1天
@@ -41,7 +41,7 @@
     //
     //
     //
-    
+    }
     function authorizeAndStartTimer() {
       const date = document.getElementById("date").value;
       const time = document.getElementById("time").value;
