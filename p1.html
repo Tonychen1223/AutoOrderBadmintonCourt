@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>v0.10 定時開啟網頁(可取消)</title>
+  <title>v0.11 定時開啟網頁(可取消)</title>
   <script>
     let targetWindow = null;
     let timer = null;
@@ -94,7 +94,7 @@
       const cresult = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${formattedDate}`;
             
       document.getElementById("url").value = `${cresult}`;
-      document.getElementById("result").textContent = `選擇結果：${cresult}`;     
+      document.getElementById("result").textContent = `預設字串：${cresult}`;     
       
     }
   </script>
@@ -149,7 +149,7 @@
   <input type="text" id="time" placeholder="例如：14:30:25"><br><br>
 
   <label for="url">網址：</label>
-  <input type="url" id="url" placeholder="https://example.com"><br><br>
+  <input type="url" id="url" maxlength="100" placeholder="https://example.com"><br><br>
 
   <button onclick="authorizeAndStartTimer()">授權並開始等待</button>
   <button id="cancelBtn" onclick="cancelTimer()" disabled>取消定時開啟</button>
