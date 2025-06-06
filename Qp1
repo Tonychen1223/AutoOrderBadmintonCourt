@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>儲存查詢結果</title>
+</head>
+<body>
+  <button onclick="saveResult()">儲存預約結果為文字檔</button>
+
+  <script>
+    function saveResult() {
+      // 1. 修改此處選取正確的元素（你要擷取的區塊）
+      const resultElement = document.querySelector('#PlaceDataDiv'); // 根據實際情況修改 ID 或 Class
+
+      if (!resultElement) {
+        alert('找不到預約資料區塊，請確認您已登入並載入查詢頁面');
+        return;
+      }
+
+      // 2. 擷取純文字
+      const text = resultElement.innerText;
+
+      // 3. 建立 Blob 物件並觸發下載
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = '預約查詢結果.txt';
+      a.click();
+
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
