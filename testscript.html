@@ -1,1 +1,15 @@
-<script>alert('這只是提醒！！！\n請勿開啟2個網頁(含以上)頁面進行登入、預約場地作業');</script>
+//<script>alert('這只是提醒！！！\n請勿開啟2個網頁(含以上)頁面進行登入、預約場地作業');</script>
+
+
+<script   language="JavaScript">   
+var   aaa   
+function   test()   
+{   
+aaa=if0.showModelessDialog("javascript:alert();window.close();","","status:no;resizable:no;help:no;dialogHeight:30px;dialogWidth:40px;");   
+setTimeout("if0.location.reload();",1000);   
+    
+}   
+</script>   
+<iframe   style="display:none"   name=if0   ></iframe>   
+<input   type="button"     value="弹出alert框,一秒后自动关闭;"   onClick="JavaScript:test()">   
+</form>
