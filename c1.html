@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<body>
+  <h3>設定欲開啟的日期時間</h3>
+
+  <label>日期：</label>
+  <input id="dateInput" type="date"><br><br>
+
+  <label>時間：</label>
+  <input id="timeInput" type="time" step="1"><br><br>
+
+  <button onclick="openCountdown()">開始倒數</button>
+
+  <script>
+    // === 預設日期為明天（自動跨月） ===
+    function setDefaultDateTime() {
+      const now = new Date();
+
+      // 明天
+      const tomorrow = new Date(now);
+      tomorrow.setDate(now.getDate() + 1);
+
+      const yyyy = tomorrow.getFullYear();
+      const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+      const dd = String(tomorrow.getDate()).padStart(2, '0');
+
+      // 預設日期
+      document.getElementById("dateInput").value = `${yyyy}-${mm}-${dd}`;
+
+      // 下一個整點
+      const nextHour = new Date(now);
+      nextHour.setHours(now.getHours() + 1, 0, 0, 0);
+
+      const hh = String(nextHour.getHours()).padStart(2, '0');
+      document.getElementById("timeInput").value = `${hh}:00:00`;
+    }
+
+    setDefaultDateTime();
+
+    // === 開啟倒數頁 ===
+    function openCountdown() {
+      const date = document.getElementById("dateInput").value;
+      const time = document.getElementById("timeInput").value;
+
+      const url = `countdown.html?date=${date}&time=${time}`;
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+</html>
