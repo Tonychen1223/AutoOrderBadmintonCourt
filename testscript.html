@@ -1,6 +1,6 @@
 <!-- <script>alert('這只是提醒！！！\n請勿開啟2個網頁(含以上)頁面進行登入、預約場地作業');</script> -->
 
-
+<!--
 <script   language="JavaScript">   
 var   aaa   
 function   test()   
@@ -13,3 +13,28 @@ setTimeout("if0.location.reload();",1000);
 <iframe   style="display:none"   name=if0   ></iframe>   
 <input   type="button"     value="弹出alert框,一秒后自动关闭;"   onClick="JavaScript:test()">   
 </form>
+-->
+
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<body>
+  <h2 id="msg">請稍候，將在 5 秒後跳轉…</h2>
+
+  <script>
+    let seconds = 5;
+    const targetUrl = "https://example.com/your-page";
+
+    const timer = setInterval(() => {
+      seconds--;
+      document.getElementById("msg").textContent =
+        `請稍候，將在 ${seconds} 秒後跳轉…`;
+
+      if (seconds <= 0) {
+        clearInterval(timer);
+        window.location.href = targetUrl;
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
