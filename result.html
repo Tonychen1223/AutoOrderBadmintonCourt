@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>接收資料</title>
+</head>
+<body>
+
+  <h2>接收到的文字：</h2>
+  <div id="output"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const text = params.get('text');
+    document.getElementById('output').textContent = text;
+  </script>
+
+</body>
+</html>
