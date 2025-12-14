@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>開新分頁並送值</title>
+</head>
+<body>
+
+  <input type="text" id="msg" placeholder="輸入文字">
+  <button onclick="openNewTab()">送出並開新分頁</button>
+
+  <script>
+    function openNewTab() {
+      const value = document.getElementById('msg').value;
+      const url = 'result.html?text=' + encodeURIComponent(value);
+      window.open(url, '_blank');
+    }
+  </script>
+
+</body>
+</html>
