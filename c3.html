@@ -1,4 +1,37 @@
-<form action="result.html" method="get" target="_blank">
-  <input type="text" name="text">
-  <button type="submit">送出</button>
-</form>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>開啟新分頁</title>
+</head>
+<body>
+    <h3>輸入網址並在新分頁開啟</h3>
+
+    <input
+        type="text"
+        id="urlInput"
+        placeholder="https://example.com"
+        style="width:300px;"
+    >
+
+    <button onclick="openUrl()">開啟</button>
+
+    <script>
+        function openUrl() {
+            let url = document.getElementById("urlInput").value.trim();
+
+            if (!url) {
+                alert("請輸入網址");
+                return;
+            }
+
+            // 若未輸入 http / https，自動補上
+            if (!/^https?:\/\//i.test(url)) {
+                url = "https://" + url;
+            }
+
+            window.open(url, "_blank");
+        }
+    </script>
+</body>
+</html>
