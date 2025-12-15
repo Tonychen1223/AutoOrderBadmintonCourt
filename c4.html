@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>即將前往訂位頁</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 80px;
+}
+.countdown {
+    font-size: 32px;
+    color: #c00;
+}
+</style>
+</head>
+<body>
+
+<h2>即將前往訂位系統</h2>
+<p>請勿關閉分頁，登入狀態將被保留</p>
+<p class="countdown"><span id="sec">3</span> 秒後自動跳轉</p>
+
+<button onclick="goNow()">立即前往</button>
+
+<script>
+const targetUrl =
+"https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&PT=1";
+
+let sec = 3;
+const el = document.getElementById("sec");
+
+const timer = setInterval(() => {
+    sec--;
+    el.textContent = sec;
+
+    if (sec <= 0) {
+        clearInterval(timer);
+        location.href = targetUrl;
+    }
+}, 1000);
+
+function goNow() {
+    location.href = targetUrl;
+}
+</script>
+
+</body>
+</html>
