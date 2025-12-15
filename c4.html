@@ -2,19 +2,49 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>網址替換</title>
+    <title>開新分頁但不跳轉</title>
 </head>
 <body>
 
-    <button onclick="go()">前往場地預約</button>
+<button onclick="openTab()">開新分頁</button>
 
-    <script>
-        function go() {
-            location.replace(
-                "https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&PT=1"
-            );
-        }
-    </script>
+<script>
+function openTab() {
+    // 開一個新的分頁（同源 about:blank）
+    const newTab = window.open('about:blank', '_blank');
+
+    if (!newTab) {
+        alert('瀏覽器阻擋了彈出視窗');
+        return;
+    }
+
+    // 先寫入內容，但不導向
+    newTab.document.write(`
+        <!DOCTYPE html>
+        <html lang="zh-TW">
+        <head>
+            <meta charset="UTF-8">
+            <title>準備中</title>
+        </head>
+        <body>
+            <h2>已開啟新分頁</h2>
+            <p>目標網址已設定，但尚未前往</p>
+
+            <button onclick="go()">前往預約網站</button>
+
+            <script>
+                function go() {
+                    location.href =
+                    'https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&PT=1';
+                }
+            <\/script>
+        </body>
+        </html>
+    `);
+
+    newTab.document.close();
+}
+</script>
 
 </body>
 </html>
