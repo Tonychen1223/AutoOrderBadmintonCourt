@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>新分頁</title>
+</head>
+<body>
+    <h3>新分頁</h3>
+    <div id="info"></div>
+
+    <script>
+        // 確保是由 window.open 開啟
+        if (!window.opener) {
+            document.getElementById("info").innerText = "無法取得 session（非由主頁開啟）";
+        } else {
+            const targetUrl = window.opener.sessionStorage.getItem("targetUrl");
+            const openTime  = window.opener.sessionStorage.getItem("openTime");
+
+            document.getElementById("info").innerHTML = `
+                <p>共用網址：${targetUrl}</p>
+                <p>開啟時間：${openTime}</p>
+            `;
+
+            // 若要直接跳轉
+            if (targetUrl) {
+                let finalUrl = targetUrl;
+                if (!/^https?:\/\//i.test(finalUrl)) {
+                    finalUrl = "https://" + finalUrl;
+                }
+                window.location.href = finalUrl;
+            }
+        }
+    </script>
+</body>
+</html>
