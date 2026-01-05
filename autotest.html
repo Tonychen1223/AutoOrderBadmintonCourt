@@ -116,6 +116,33 @@
       document.getElementById("result").textContent = `預設字串：${cresult}`;     
       
     }
+
+    //借網路神人程式
+    function navigateToUrl(url) {
+    var f = document.createElement("FORM");
+    f.action = url;
+
+    var indexQM = url.indexOf("?");
+    if (indexQM>=0) {
+        // the URL has parameters => convert them to hidden form inputs
+        var params = url.substring(indexQM+1).split("&");
+        for (var i=0; i<params.length; i++) {
+            var keyValuePair = params[i].split("=");
+            var input = document.createElement("INPUT");
+            input.type="hidden";
+            input.name  = keyValuePair[0];
+            input.value = keyValuePair[1];
+            f.appendChild(input);
+        }
+    }
+    document.body.appendChild(f);
+    f.submit();
+    }  
+
+  navigateToUrl("http://foo.com/bar");"  
+
+    //借網路神人程式
+    
   </script>
 </head>
 <body>
