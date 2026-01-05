@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>v0.1.0 定時開啟網頁(可取消)</title>
+  <script>
+    let targetWindow = null;
+    let timer = null;
+    
+    //
+    // 將預訂的日期設為今天
+    //
+    window.onload = function () {
+      
+    const now = new Date();
+
+    // 設定(定時)日期為明天
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1); // 自動處理月底與跨月/年    
+    const tdyear = tomorrow.getFullYear();
+    const tdmonth = String(tomorrow.getMonth() + 1).padStart(2, '0');
+    const tdday = String(tomorrow.getDate()).padStart(2, '0');
+    const tdtoday = `${tdyear}-${tdmonth}-${tdday}`;
+    document.getElementById("date").value = tdtoday;
+
+    // 計算下個星期六
+    const dayOfWeek = now.getDay(); // 0 = Sunday, 6 = Saturday
+    const daysUntilSaturday = (6 - dayOfWeek + 7) % 7 || 7; // 至少+1天
+    const nextSaturday = new Date(now);
+    nextSaturday.setDate(now.getDate() + daysUntilSaturday +7); //+7=下下個星期六
+
+    const year = nextSaturday.getFullYear();
+    const month = String(nextSaturday.getMonth() + 1).padStart(2, '0');
+    const day = String(nextSaturday.getDate()).padStart(2, '0');
+    const nextSaturdayStr = `${year}-${month}-${day}`;
+    document.getElementById("order_date").value = nextSaturdayStr;
+
+      
+    // 設定預設時間為「下一個整點」
+    let nextHour = now.getHours() + 1;
+    if (nextHour === 24) {
+      nextHour = 0; // 隔天凌晨
+    }
+    const defaultTime = `${String(nextHour).padStart(2, '0')}:00:00`;
+    document.getElementById("time").value = defaultTime;    
+    }
+    //
+    //
+    //
+    function authorizeAndStartTimer() {
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+      const url = document.getElementById("url").value;
+
+      if (!date || !time || !url) {
+        alert("請輸入完整的日期、時間（含秒）與網址！");
+        return;
+      }
+
+      const dateTimeStr = `${date}T${time}`;
+      const targetDateTime = new Date(dateTimeStr);
+
+      if (isNaN(targetDateTime.getTime())) {
+        alert("時間格式無效，請使用 HH:MM:SS");
+        return;
+      }
+
+      targetWindow = window.open("", "_blank");
+      if (!targetWindow) {
+        alert("瀏覽器阻擋了新視窗，請允許彈出視窗後再試一次。");
+        return;
+      }
+
+      document.getElementById("status").textContent = `已授權，等待開啟：${targetDateTime.toLocaleString()}`;
+      document.getElementById("cancelBtn").disabled = false;
+
+      timer = setInterval(() => {
+        const now = new Date();
+        if (now >= targetDateTime) {
+          targetWindow.location.href = url;
+          clearInterval(timer);
+          timer = null;
+          document.getElementById("status").textContent = "新網頁已開啟。";
+          document.getElementById("cancelBtn").disabled = true;
+        }
+      }, 500);
+    }
+
+    function cancelTimer() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+      if (targetWindow && !targetWindow.closed) {
+        targetWindow.close();
+      }
+      targetWindow = null;
+      document.getElementById("status").textContent = "已取消定時開啟。";
+      document.getElementById("cancelBtn").disabled = true;
+    }    
+    
+    function generateString() {
+      const cvenue = document.getElementById("venue").value;
+      const ctime = document.getElementById("court_time").value;
+      const cdate = document.getElementById("order_date").value;
+      
+      const formattedDate = cdate.replace(/-/g, "/");       // "2025/06/04"
+      const cresult = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${formattedDate}`;
+
+      // 自動複製字串到記憶體中    
+      // navigator.clipboard.writeText(cresult);
+      //      alert("已複製到剪貼簿！");    
+      //
+      
+      document.getElementById("url").value = `${cresult}`;
+      document.getElementById("result").textContent = `預設字串：${cresult}`;     
+      
+    }
+  </script>
+</head>
+<body>
+  
+  <!--以下為選擇場地時間-->
+  <h3>1.選擇場地與時間</h3>
+
+  <label for="order_date">日期：</label>
+  <input type="date" id="order_date"><br><br>
+
+  <label for="venue">場地:</label>
+  <select id="venue">
+    <option value="1154">C場</option>    
+    <option value="1152">A場</option>
+    <option value="1153">B場</option>
+    <option value="1154">C場</option>
+  </select>
+
+  <label for="court_time">時間:</label>
+  <select id="court_time">
+    <option value="19">19點</option>
+    <option value="06">06點</option>
+    <option value="07">07點</option>
+    <option value="08">08點</option>
+    <option value="09">09點</option>
+    <option value="10">10點</option>
+    <option value="11">11點</option>
+    <option value="12">12點</option>
+    <option value="13">13點</option>
+    <option value="14">14點</option>
+    <option value="15">15點</option>
+    <option value="16">16點</option>
+    <option value="17">17點</option>
+    <option value="18">18點</option>
+    <option value="19">19點</option>
+    <option value="20">20點</option>
+    <option value="21">21點</option>
+  </select>
+
+  <button onclick="generateString()">產生預訂字串</button>
+  <p id="result">預設字串：</p>
+  <p></p>
+  <p>====== 說明 ======</p>  
+  <p> （開始前記得先開分頁登入會員）</p>
+  <p> 1.選要訂的日期/時間/場地 </p>
+  <p> 2.確認後按“產生預訂字串” </p>
+  <p> 3.檢查要送出的日期/時間，若不正確可以手動修改 </p>
+  <p> 4.按“授權並開始等待” </p>
+  <p style="color: red;">目前訂時自動預訂官網會擋,需改以手動方式</p>
+  <p> <del>5.會開啟一個空的新頁面，時間到就會自動送 </del></p>
+  <p> 5.字串會自動複製到記憶體中, 時間到達時, 手動於網址列貼上字串並送出</p>
+  <p>===============</p>
+  <p></p> 
+  
+  <!--以下為定時開啟-->  
+  <h3 style="color: red;">2.定時開啟網頁(目前無法使用)</h3>  
+  
+  <label for="date">(定時)日期：</label>
+  <input type="date" id="date"><br><br>
+
+  <label for="time">(定時)時間（格式 HH:MM:SS）：</label>
+  <input type="text" id="time" placeholder="例如：14:30:25"><br><br>
+
+  <label for="url">網址字串：</label>
+  <input type="url" id="url" size="130" placeholder="https://example.com"><br><br>
+
+  <button onclick="authorizeAndStartTimer()">授權並開始等待</button>
+  <button id="cancelBtn" onclick="cancelTimer()" disabled>取消定時開啟</button>
+
+  <p id="status">尚未授權。 </p>
+  
+</body>
+</html>
