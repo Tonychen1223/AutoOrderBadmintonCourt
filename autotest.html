@@ -106,7 +106,7 @@
       
       const formattedDate = cdate.replace(/-/g, "/");       // "2025/06/04"
       const cresult = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${formattedDate}`;
-      const cresultlk = `<a href=`&`https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${formattedDate}`&`>OK</a>`;
+      const cresultlk = `<a href=`+`https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${formattedDate}`+`>OK</a>`;
       // 自動複製字串到記憶體中    
       // navigator.clipboard.writeText(cresult);
       //      alert("已複製到剪貼簿！");    
