@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>v0.1.5 定時開啟網頁(可取消)</title>
+  <title>v0.1.6 定時開啟網頁(可取消)</title>
   <script>
     let targetWindow = null;
     let timer = null;
@@ -106,14 +106,15 @@
       
       const formattedDate = cdate.replace(/-/g, "/");       // "2025/06/04"
       const cresult = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${formattedDate}`;
-
+      const cresultlk = `<a href=`&`https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${formattedDate}`&`>OK</a>`;
       // 自動複製字串到記憶體中    
       // navigator.clipboard.writeText(cresult);
       //      alert("已複製到剪貼簿！");    
       //
       
       document.getElementById("url").value = `${cresult}`;
-      document.getElementById("result").textContent = `預設字串：${cresult}`; 
+      document.getElementById("result").textContent = `預設字串：${cresultlk}`; 
+      
     }
 
     /*//借網路神人程式
