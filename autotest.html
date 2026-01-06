@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>v0.1.6 定時開啟網頁(可取消)</title>
+  <title>v0.1.7 定時開啟網頁(可取消)</title>
   <script>
     let targetWindow = null;
     let timer = null;
@@ -114,6 +114,21 @@
       
       document.getElementById("url").value = `${cresult}`;
       document.getElementById("result").textContent = `預設字串：${cresultlk}`; 
+
+      // 1. 建立一個新的 <a> 元素
+            const newLink = document.createElement('a');
+            
+            // 2. 設定連結的屬性
+            newLink.href = cresult;
+            newLink.textContent = "這是自動生成的連結";
+            newLink.target = "_blank"; // 在新分頁開啟
+            
+            // 3. 找到要存放連結的容器
+            const container = document.getElementById('result');
+            
+            // 4. 將連結加入到頁面中
+            container.appendChild(newLink);
+
       
     }
 
