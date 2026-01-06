@@ -113,13 +113,11 @@
       //
       
       document.getElementById("url").value = `${cresult}`;
-      document.getElementById("result").textContent = `預設字串：${cresult}`;    
-
-      navigateToUrl("https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&PT=1")
-      
+      document.getElementById("result").textContent = `預設字串：${cresult}`; 
     }
 
-    //借網路神人程式
+    /*//借網路神人程式
+    //2026.01.06-測試失敗,仍會被後台強制登出
     function navigateToUrl(url5) {
     var f = document.createElement("FORM");
     f.action = url5;
@@ -140,10 +138,10 @@
     document.body.appendChild(f);
     f.submit();
     }  
-  /* navigateToUrl("http://foo.com/bar");"  
-
-   */
-  //借網路神人程式程式   
+    
+    navigateToUrl("http://foo.com/bar");"  
+   *///借網路神人程式程式
+  
   </script>
 </head>
 <body>
