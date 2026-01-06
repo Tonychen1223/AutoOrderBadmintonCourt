@@ -158,7 +158,19 @@
     
     navigateToUrl("http://foo.com/bar");"  
    *///借網路神人程式程式
-  
+
+    const btn = document.getElementById('change-url-btn');
+
+    btn.addEventListener('click', function() {
+        const newUrl = 'https://www.sss.ccc';
+        
+        // 使用 pushState 修改網址
+        // 參數分別為：(狀態物件, 標題, 新網址)
+        window.history.pushState({ path: newUrl }, '', newUrl);
+
+        alert('網址已替換！請查看瀏覽器上方列，但頁面並未跳轉。');
+    });
+    
   </script>
 </head>
 <body>
@@ -233,19 +245,7 @@
 //////
   <button id="change-url-btn">修改網址為 https://www.sss.ccc</button>
 
-    <script>
-        const btn = document.getElementById('change-url-btn');
-
-        btn.addEventListener('click', function() {
-            const newUrl = 'https://www.sss.ccc';
-            
-            // 使用 pushState 修改網址
-            // 參數分別為：(狀態物件, 標題, 新網址)
-            window.history.pushState({ path: newUrl }, '', newUrl);
-
-            alert('網址已替換！請查看瀏覽器上方列，但頁面並未跳轉。');
-        });
-    </script>
+    
   
 </body>
 </html>
