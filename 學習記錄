@@ -1,0 +1,32 @@
+在 JavaScript 中若要撰寫網頁轉址程式非常容易，有寫過的人都知道要用 location.href 屬性，而另外還有一個 location.replace 可用，功能差不多，但在實務上應用是有差異的，我今天就來說說它們之間的差異。
+
+首先給 JavaScript 初學者幾個清楚的範例，避免寫錯程式。
+
+location 物件的 href 是個屬性，屬性需要直接指定其值，例如：
+
+location.href = 'http://blog.miniasp.com/';
+location 物件的 replace 是個方法(method)或函式(function)，需要加上刮號傳入參數，例如：
+
+location.replace('http://blog.miniasp.com/');
+接著，我用一個簡單的例子說明這兩個用法與直接下連結的差別：
+
+<a href="a.htm">a.htm</a>
+|
+<a href="#" onclick="location.href='a.htm'">location.href='a.htm';</a>
+|
+<a href="#" onclick="location.replace('a.htm')">location.replace('a.htm')</a>
+1. 直接用 <a href="a.htm"> 連結的作法
+
+瀏覽器會送出 Referer 這個 HTTP Header
+瀏覽器會紀錄連結的歷史紀錄 ( 好讓瀏覽器的 上一頁 、 下一頁 按鈕可以運作 )
+2. 透過 JavaScript 的 location.href 指派網址
+
+瀏覽器不會送出 Referer 這個 HTTP Header
+瀏覽器會紀錄連結的歷史紀錄 ( 好讓瀏覽器的 上一頁 、 下一頁 按鈕可以運作 )
+3. 透過 JavaScript 的 location.replace 傳入網址
+
+瀏覽器不會送出 Referer 這個 HTTP Header
+瀏覽器不會紀錄連結的歷史紀錄! ( 瀏覽器將無瀏覽歷史紀錄 )
+
+以上參考來源:
+https://blog.miniasp.com/post/2009/03/25/location-href-and-location-replace-in-practice
