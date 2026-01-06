@@ -120,14 +120,14 @@
     }
 
     //借網路神人程式
-    function navigateToUrl(url) {
+    function navigateToUrl(url5) {
     var f = document.createElement("FORM");
-    f.action = url;
+    f.action = url5;
 
-    var indexQM = url.indexOf("?");
+    var indexQM = url5.indexOf("?");
     if (indexQM>=0) {
         // the URL has parameters => convert them to hidden form inputs
-        var params = url.substring(indexQM+1).split("&");
+        var params = url5.substring(indexQM+1).split("&");
         for (var i=0; i<params.length; i++) {
             var keyValuePair = params[i].split("=");
             var input = document.createElement("INPUT");
