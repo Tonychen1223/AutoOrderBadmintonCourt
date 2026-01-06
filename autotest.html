@@ -107,6 +107,7 @@
       const formattedDate = cdate.replace(/-/g, "/");       // "2025/06/04"
       const cresult = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${formattedDate}`;
       const cresultlk = `<a href=`+`https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&StepFlag=25&QPid=${cvenue}&QTime=${ctime}&PT=1&D=${formattedDate}`+`>OK</a>`;
+      const cresultlktemp = `https://resortbooking.metro.taipei/MT02.aspx?module=net_booking&files=booking_place&PT=1`;
       // 自動複製字串到記憶體中    
       // navigator.clipboard.writeText(cresult);
       //      alert("已複製到剪貼簿！");    
@@ -119,7 +120,7 @@
             const newLink = document.createElement('a');
             
             // 2. 設定連結的屬性
-            newLink.href = cresult;
+            newLink.href = cresultlktemp;
             newLink.textContent = "這是自動生成的連結";
             newLink.target = "_blank"; // 在新分頁開啟
             
